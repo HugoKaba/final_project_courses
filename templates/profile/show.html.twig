@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil
+{% endblock %}
+
+{% block body %}
+	<h1>Mon Profil</h1>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Informations personnelles</h5>
+					<p>
+						<strong>Email:</strong>
+						{{ app.user.email }}</p>
+					<p>
+						<strong>Nom:</strong>
+						{{ app.user.nom }}</p>
+					<p>
+						<strong>Prénom:</strong>
+						{{ app.user.prenom }}</p>
+					<p>
+						<strong>Points:</strong>
+						{{ app.user.points }}</p>
+					<p>
+						<strong>Statut:</strong>
+						{% if app.user.actif %}
+							<span class="badge bg-success">Actif</span>
+						{% else %}
+							<span class="badge bg-danger">Inactif</span>
+						{% endif %}
+					</p>
+
+					<a href="{{ path('app_profile_edit') }}" class="btn btn-primary">Modifier mes informations</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Mes notifications</h5>
+					{% if app.user.notifications|length > 0 %}
+						<ul class="list-group list-group-flush">
+							{% for notification in app.user.notifications|slice(0, 5) %}
+								<li class="list-group-item">
+									{{ notification.label }}
+									<small class="text-muted d-block">{{ notification.createdAt|date('d/m/Y à H:i') }}</small>
+								</li>
+							{% endfor %}
+						</ul>
+					{% else %}
+						<p>Aucune notification.</p>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ produit.nom }}
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-8">
+			<h1>{{ produit.nom }}</h1>
+
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Détails du produit</h5>
+					<p>
+						<strong>Description:</strong>
+						{{ produit.description }}</p>
+					<p>
+						<strong>Prix:</strong>
+						{{ produit.prix }}
+						points</p>
+					<p>
+						<strong>Catégorie:</strong>
+						{{ produit.category }}</p>
+					<p>
+						<strong>Créé le:</strong>
+						{{ produit.createdAt|date('d/m/Y à H:i') }}</p>
+
+					{% if app.user %}
+						{% if app.user.actif %}
+							{% if app.user.points >= produit.prix %}
+								<form method="post" action="{{ path('app_purchase_product', {id: produit.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir acheter ce produit ?')">
+									<button type="submit" class="btn btn-success">Acheter pour
+										{{ produit.prix }}
+										points</button>
+								</form>
+							{% else %}
+								<div class="alert alert-warning">
+									Vous n'avez pas assez de points pour acheter ce produit.
+								</div>
+							{% endif %}
+						{% else %}
+							<div class="alert alert-danger">
+								Votre compte est désactivé, vous ne pouvez pas acheter de produits.
+							</div>
+						{% endif %}
+					{% else %}
+						<a href="{{ path('app_login') }}" class="btn btn-primary">Connectez-vous pour acheter</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="{{ path('app_produit_list') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+{% endblock %}

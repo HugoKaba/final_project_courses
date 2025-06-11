@@ -1,0 +1,39 @@
+nav:
+  home: "Accueil"
+  products: "Produits"
+  login: "Connexion"
+  logout: "Déconnexion"
+  register: "Inscription"
+  profile: "Mon Profil"
+  admin: "Administration"
+
+product:
+  list_title: "Liste des produits"
+  detail_title: "Détail du produit"
+  name: "Nom"
+  price: "Prix"
+  category: "Catégorie"
+  description: "Description"
+  created_at: "Créé le"
+  buy_button: "Acheter pour %points% points"
+  no_products: "Aucun produit disponible."
+
+user:
+  points: "%points% points"
+  status_active: "Actif"
+  status_inactive: "Inactif"
+
+admin:
+  dashboard: "Tableau de bord administrateur"
+  users_management: "Gestion des utilisateurs"
+  products_management: "Gestion des produits"
+  add_points: "Ajouter 1000 points à tous les utilisateurs actifs"
+
+messages:
+  success:
+    purchase: "Achat effectué avec succès !"
+    profile_updated: "Profil mis à jour avec succès !"
+    points_distributed: "La distribution de points a été programmée en arrière-plan."
+  error:
+    account_disabled: "Votre compte est désactivé, vous ne pouvez pas acheter de produits."
+    insufficient_points: "Vous n'avez pas assez de points pour acheter ce produit."

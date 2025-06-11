@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des utilisateurs
+{% endblock %}
+
+{% block body %}
+	<h1>Gestion des utilisateurs</h1>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Email</th>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Points</th>
+					<th>Statut</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.id }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.nom }}</td>
+						<td>{{ user.prenom }}</td>
+						<td>{{ user.points }}</td>
+						<td>
+							{% if user.actif %}
+								<span class="badge bg-success">Actif</span>
+							{% else %}
+								<span class="badge bg-danger">Inactif</span>
+							{% endif %}
+						</td>
+						<td>
+							<form method="post" action="{{ path('app_admin_user_toggle_active', {id: user.id}) }}" style="display: inline;">
+								<button type="submit" class="btn btn-sm btn-{% if user.actif %}danger{% else %}success{% endif %}">
+									{% if user.actif %}Désactiver{% else %}Activer
+									{% endif %}
+								</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<a href="{{ path('app_admin_dashboard') }}" class="btn btn-secondary">Retour au dashboard</a>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes notifications
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h1>Mes notifications</h1>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			{% for notification in notifications %}
+				<div class="card mb-3
+												                {% if notification.type == 'blocage' %}border-danger{% endif %}
+												                {% if notification.type == 'reactivation' %}border-success{% endif %}
+												                {% if notification.type == 'achat' %}border-info{% endif %}
+												                {% if notification.type == 'product' %}border-primary{% endif %}
+												                {% if notification.type == 'points' %}border-warning{% endif %}
+												            ">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-start">
+							<div>
+								<h6 class="card-title">
+									{% if notification.type == 'product' %}
+										<i class="fas fa-box text-primary"></i>
+										Produit
+									{% elseif notification.type == 'achat' %}
+										<i class="fas fa-shopping-cart text-success"></i>
+										Achat
+									{% elseif notification.type == 'blocage' %}
+										<i class="fas fa-ban text-danger"></i>
+										Compte
+									{% elseif notification.type == 'reactivation' %}
+										<i class="fas fa-check-circle text-success"></i>
+										Réactivation
+									{% elseif notification.type == 'points' %}
+										<i class="fas fa-coins text-warning"></i>
+										Points
+									{% else %}
+										<i class="fas fa-bell text-info"></i>
+										Notification
+									{% endif %}
+								</h6>
+								<p class="card-text">{{ notification.label }}</p>
+								{% if notification.concernedUser and notification.concernedUser != app.user and is_granted('ROLE_ADMIN') %}
+									<small class="text-muted">
+										<i class="fas fa-user"></i>
+										Concerné:
+										{{ notification.concernedUser.prenom }}
+										{{ notification.concernedUser.nom }}
+									</small>
+								{% endif %}
+							</div>
+							<small class="text-muted">
+								{{ notification.createdAt|date('d/m/Y à H:i') }}
+							</small>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="alert alert-info">
+					<i class="fas fa-info-circle"></i>
+					Aucune notification trouvée.
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

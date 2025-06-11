@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration
+{% endblock %}
+
+{% block body %}
+	<h1>Tableau de bord administrateur</h1>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Gestion des utilisateurs</h5>
+					<p class="card-text">Gérer les utilisateurs, activer/désactiver les comptes</p>
+					<a href="{{ path('app_admin_users') }}" class="btn btn-primary">Gérer les utilisateurs</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Gestion des produits</h5>
+					<p class="card-text">Ajouter, modifier, supprimer des produits</p>
+					<a href="{{ path('app_admin_produits') }}" class="btn btn-primary">Gérer les produits</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-4">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Actions rapides</h5>
+					<form method="post" action="{{ path('app_messenger_add_points') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir ajouter 1000 points à tous les utilisateurs actifs ?')">
+						<button type="submit" class="btn btn-warning">Ajouter 1000 points à tous les utilisateurs actifs</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

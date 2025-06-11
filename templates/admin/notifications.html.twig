@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les notifications
+{% endblock %}
+
+{% block body %}
+	<div class="d-flex justify-content-between align-items-center mb-4">
+		<h1>Toutes les notifications</h1>
+		<a href="{{ path('app_admin_dashboard') }}" class="btn btn-secondary">Retour au tableau de bord</a>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			{% for notification in notifications %}
+				<div class="card mb-3">
+					<div class="card-body">
+						<div class="d-flex justify-content-between align-items-start">
+							<div>
+								<h6 class="card-title">
+									{% if notification.type == 'product' %}
+										<i class="fas fa-box text-primary"></i>
+										Produit
+									{% elseif notification.type == 'achat' %}
+										<i class="fas fa-shopping-cart text-success"></i>
+										Achat
+									{% elseif notification.type == 'blocage' %}
+										<i class="fas fa-ban text-danger"></i>
+										Blocage
+									{% elseif notification.type == 'reactivation' %}
+										<i class="fas fa-check-circle text-success"></i>
+										Réactivation
+									{% elseif notification.type == 'points' %}
+										<i class="fas fa-coins text-warning"></i>
+										Points
+									{% else %}
+										<i class="fas fa-bell text-info"></i>
+										Notification
+									{% endif %}
+								</h6>
+								<p class="card-text">{{ notification.label }}</p>
+							</div>
+							<small class="text-muted">
+								{{ notification.createdAt|date('d/m/Y à H:i') }}
+							</small>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<div class="alert alert-info">
+					<i class="fas fa-info-circle"></i>
+					Aucune notification trouvée.
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

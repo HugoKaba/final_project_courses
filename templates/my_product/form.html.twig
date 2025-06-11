@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ produit ? 'Modifier' : 'Créer' }}
+	un produit
+{% endblock %}
+
+{% block body %}
+	<h1>{{ produit ? 'Modifier' : 'Créer' }}
+		un produit</h1>
+
+	<form method="post">
+		<div class="mb-3">
+			<label for="nom" class="form-label">Nom</label>
+			<input type="text" class="form-control" id="nom" name="nom" value="{{ produit ? produit.nom : '' }}" required>
+		</div>
+
+		<div class="mb-3">
+			<label for="prix" class="form-label">Prix (en points)</label>
+			<input type="number" class="form-control" id="prix" name="prix" value="{{ produit ? produit.prix : '' }}" required min="1">
+		</div>
+
+		<div class="mb-3">
+			<label for="category" class="form-label">Catégorie</label>
+			<select class="form-control" id="category" name="category" required>
+				<option value="">Choisir une catégorie</option>
+				<option value="Électronique" {{ produit and produit.category == 'Électronique' ? 'selected' : '' }}>Électronique</option>
+				<option value="Vêtements" {{ produit and produit.category == 'Vêtements' ? 'selected' : '' }}>Vêtements</option>
+				<option value="Livres" {{ produit and produit.category == 'Livres' ? 'selected' : '' }}>Livres</option>
+				<option value="Sport" {{ produit and produit.category == 'Sport' ? 'selected' : '' }}>Sport</option>
+				<option value="Maison" {{ produit and produit.category == 'Maison' ? 'selected' : '' }}>Maison</option>
+			</select>
+		</div>
+
+		<div class="mb-3">
+			<label for="description" class="form-label">Description</label>
+			<textarea class="form-control" id="description" name="description" rows="4">{{ produit ? produit.description : '' }}</textarea>
+		</div>
+
+		<button type="submit" class="btn btn-primary">{{ produit ? 'Modifier' : 'Créer' }}</button>
+		<a href="{{ path('app_my_products') }}" class="btn btn-secondary">Annuler</a>
+	</form>
+{% endblock %}

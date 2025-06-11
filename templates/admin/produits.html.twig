@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des produits
+{% endblock %}
+
+{% block body %}
+	<h1>Gestion des produits</h1>
+
+	<div class="mb-3">
+		<a href="{{ path('app_admin_produit_new') }}" class="btn btn-success">Ajouter un produit</a>
+	</div>
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nom</th>
+					<th>Prix</th>
+					<th>Catégorie</th>
+					<th>Créé par</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for produit in produits %}
+					<tr>
+						<td>{{ produit.id }}</td>
+						<td>{{ produit.nom }}</td>
+						<td>{{ produit.prix }}
+							points</td>
+						<td>{{ produit.category }}</td>
+						<td>{{ produit.createdBy ? produit.createdBy.prenom ~ ' ' ~ produit.createdBy.nom : 'N/A' }}</td>
+						<td>
+							<a href="{{ path('app_admin_produit_edit', {id: produit.id}) }}" class="btn btn-sm btn-primary">Modifier</a>
+							<form method="post" action="{{ path('app_admin_produit_delete', {id: produit.id}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')">
+								<button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<a href="{{ path('app_admin_dashboard') }}" class="btn btn-secondary">Retour au dashboard</a>
+{% endblock %}
